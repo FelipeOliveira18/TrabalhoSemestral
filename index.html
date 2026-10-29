@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estação Meteorológica</title>
+
+    <link rel="stylesheet"  href="Style.css">
+
+    <script src="Script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+
+        <header class="topo">
+            <A class="logo" href="#">
+                <span class="logoIcone">*</span>
+                <span>
+                    <strong>ClimaLab</strong>
+                    <small>Estação Meteorológiva</small>
+                </span>
+            </A>
+
+            <div class="conexão">
+                <span id="statusDot" class="status-dot"></span>
+                <span id="conexãoStatus">Conectando...</span>
+
+            </div>
+        </header>
+
+        <main>
+            <section class="intro">
+                <p class="eyebrow">Monitoramento Ambiental</p>
+                <h1>Condições <span>agora.</span></h1>
+                <p class="subtitulo">
+                    Acompanhe os dados coletados pelos sensores da estação.
+                </p>
+            </section>
+
+
+            <section class="section-heading">
+                <div>
+                    <h2>Visão Geral</h2>
+                    <p>Leituras mais Recentes</p>
+                </div>
+
+                <span class="live badge">
+                    <span class="live-dot"></span>
+                    Atualização Automatica
+                </span>
+
+            </section>
+
+            <section class="metrics-grid">
+
+                <article class="metric-card">
+                    <div class="card-top">
+                        <span class="icone azul">☼</span>
+                        <span class="sensor">DHT22</span>
+                    </div>
+                    <p class="label">Temperatura</p>
+                    <div class="valor">
+                        <span id="temperatura">--</span>
+                        <small>°C</small>
+                    
+                    </div>
+                    <p class="descricao">Temperatura Ambiente</p>
+                </article>
+
+
+                <article class="metric-card">
+                    <div class="card-top">
+                        <span class="icone ciano">◉</span>
+                        <span class="sensor">DHT22</span>
+                    </div>
+                    <p class="label">Umidade do Ar</p>
+                    <div class="valor">
+                        <span id="umidade">--</span>
+                        <small>%</small>
+                    </div>
+                    <div class="progresso">
+                        <div id="barraUmidade"></div>
+                    </div>
+                    <p class="descricao">Umidade Relativa</p>
+                    
+                </article>
+
+                <article class="metric-card">
+                    <div class="card-top">
+                    <span class="icone roxo">⌁</span>
+                    <span class="sensor">BMP280</span>
+                    </div>
+                    <p class="label">Pressão Atmosférica</p>
+                    <div class="valor">
+                        <span id="pressao">--</span>
+                        <small>hPa</small>
+                    </div>
+                    <p class="descricao">Pressão local medida</p>
+                </article>
+
+                <article class="metric-card">
+                    <div class="card-top">
+                        <span class="icone-laranja">↟</span>
+                        <span class="sensor">BMP280</span>
+                    </div>
+                    <p class="label">Altitude estimada</p>
+                    <div class="valor">
+                        <span id="altitude">--</span>
+                        <small>m</small>
+
+                    </div>
+                    <p class="descricao">Estimativa barométrica</p>
+                </article>
+
+                <article class="metric-card">
+                    <div class="card-top">
+                        <span class="icone-amarelo">☀</span>
+                        <span class="sensor">LDR</span>
+                    </div>
+                    <p class="label">Luminosidade</p>
+                    <div class="valor">
+                        <span id="luz">--</span>
+                        <small>/ 4095</small>
+                    </div>
+                    <p class="descricao">Valor bruto do sensor</p>
+
+                </article>
+
+                <article class="metric-card">
+                    <div class="card-top">
+                        <span class="icone-verde">≋</span>
+                        <span class="sensor"></span>
+                    </div>
+                    <p class="label">Leitura analógica do ae</p>
+                    <div class="valor">
+                        <span id="arAnalogico">--</span>
+                        <small>/ 4095</small>
+                    </div>
+                    <p class="descricao">Valor bruto, não é ppm</p>
+                </article>
+            </section>
+
+            <section class="bottom-grid">
+
+                <article class="panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h2>Qualidade do ar</h2>
+                            <p>Saída digital do MQ-135</p>
+                        </div>
+                        <span class="icone-verde">≋</span>
+                    </div>
+
+                    <div class="statusDigital">
+                        <span id="airDot" class="air-dot"></span>
+                        <div>
+                            <strong id="arDigital">Aguardando dados</strong>
+                            <p id="arDescricao">
+                                Estado lógico do sensor
+                            </p>
+                        </div>
+                    </div>
+
+                    <p class="nota">
+                        O estado digital depende da configuração do módulo.
+                        Não representa, sozinho, uma concentração exata de gases,
+                    </p>
+                </article>
+                <article class="panel">
+                    <div class="panel-heading">
+                        <div>
+                            <h2>Status do sistema</h2>
+                            <p>Comunicação da estação</p>
+                        </div>
+                        <span class="icone-azul">⌘</span>
+                    </div>
+
+                    <div class="system-row">
+                        <span>Firebase</span>
+                        <strong id="firebaseStatus">Aguardando...</strong>
+                    </div>
+
+                    <div class="system-row">
+                        <span>Ultima consulta</span>
+                        <strong id="ultimoUpdate">--;--;--</strong>
+                    </div>
+
+                    <div class="system-row">
+                        <span>Intervalo de consulta</span>
+                        <strong>5 Segundos</strong>
+                    </div>
+
+                    <button id="recarregar" type="button">Recarregar</button>
+                </article>
+            </section>
+
+        </main>
+        <footer>
+            Projeto Acadêmico ESP32 e sensores ambientais
+        </footer>
+    </div>
+</body>
+</html>
